@@ -9,15 +9,15 @@ class PrivateMessage(Base):
     __tablename__ = "private_messages"
 
     id = Column(Integer, primary_key=True)
-    sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    receiver_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    # 对方（无论是用户还是 bot）
+    peer_id = Column(Integer, ForeignKey("videos.id"), nullable=False)
+
+    # 是你发的，还是对方发的？
+    from_me = Column(Boolean, default=True)
+
     content = Column(Text, nullable=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
     is_read = Column(Boolean, default=False)
 
-    sender = relationship(
-        "User", foreign_keys=[sender_id], back_populates="sent_messages"
-    )
-    receiver = relationship(
-        "User", foreign_keys=[receiver_id], back_populates="received_messages"
-    )
+    peer = relationship("Video", foreign_keys=[peer_id])

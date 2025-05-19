@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.models.base import Base
 
-# from app.models.chatModel import PrivateMessage
+from app.models.chatModel import PrivateMessage
 from app.models.subtitleModel import Subtitle
 from app.models.vedioModel import Video
 from app.db import engine
